@@ -14,3 +14,12 @@ Content-Type: application/json
     "name": "Alan Turing",
     "number": "040-139234"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Ash Ketchum",
+    "number": ""
+}
