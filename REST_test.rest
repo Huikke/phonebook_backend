@@ -23,3 +23,6 @@ Content-Type: application/json
     "name": "Ash Ketchum",
     "number": ""
 }
+
+###
+GET http://localhost:3001/doesnt_exist
