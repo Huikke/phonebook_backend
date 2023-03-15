@@ -1,0 +1,28 @@
+GET https://ancient-field-8760.fly.dev/api/persons
+
+###
+GET https://ancient-field-8760.fly.dev/info
+
+###
+DELETE https://ancient-field-8760.fly.dev/api/persons/2
+
+###
+POST https://ancient-field-8760.fly.dev/api/persons
+Content-Type: application/json
+
+{
+    "name": "Alan Turing",
+    "number": "040-139234"
+}
+
+###
+POST https://ancient-field-8760.fly.dev/api/persons
+Content-Type: application/json
+
+{
+    "name": "Ash Ketchum",
+    "number": ""
+}
+
+###
+GET https://ancient-field-8760.fly.dev/doesnt_exist
