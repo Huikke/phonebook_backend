@@ -24,7 +24,6 @@ app.get('/info', (request, response, next) => {
   `).catch(error => next(error))
 })
 
-// Explodes if id doesn't exist
 app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id).then(person => {
     if (person) {
@@ -51,8 +50,7 @@ const generateRandomId = () => {
   return Math.floor(Math.random() * 1000000);
 }
 
-// Has no restrictions for now
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
   if (!body.name || !body.number) {
@@ -60,20 +58,22 @@ app.post('/api/persons', (request, response) => {
       error: 'name and/or number missing'
     })
   }
-  /*if (persons.some(person => person.name === body.name)) {
-    return response.status(400).json({
-      error: 'name must be unique'
+  Person.find({}).then(persons => {
+    if (persons.some(person => person.name === body.name)) {
+      return response.status(400).json({
+        error: 'name must be unique'
+      })
+    }
+
+    const person = new Person ({
+      name: body.name,
+      number: body.number
     })
-  } in maintenance*/
-
-  const person = new Person ({
-    name: body.name,
-    number: body.number
-  })
-
-  person.save().then(savedPerson => {
-    response.json(savedPerson)
-  })
+  
+    person.save().then(savedPerson => {
+      response.json(savedPerson)
+    })
+  }).catch(error => next(error))
 })
 
 const errorHandler = (error, request, response, next) => {
