@@ -5,7 +5,10 @@ GET http://localhost:3001/api/persons
 GET http://localhost:3001/info
 
 ### delete person
-DELETE http://localhost:3001/api/persons/641de59c3fa81b2e4ca9660a
+DELETE http://localhost:3001/api/persons/641dfdbb6147052cde655fe7
+
+### delete invalid person
+DELETE http://localhost:3001/api/persons/apina
 
 ### add person
 POST http://localhost:3001/api/persons
