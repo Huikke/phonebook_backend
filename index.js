@@ -11,40 +11,39 @@ app.use(morgan('tiny'))
 app.use(cors())
   
 app.get('/api/persons', (request, response, next) => {
-    Person.find({}).then(persons => {
-      response.json(persons)
-    }).catch(error => next(error))
+  Person.find({}).then(persons => {
+    response.json(persons)
+  }).catch(error => next(error))
 })
 
 // Doesn't work properly
 app.get('/info', (request, response, next) => {
-    response.send(`
-        <p>Phonebook has info for ${Person.length} people</p>
-        <p>${Date()}</p>
-    `).catch(error => next(error))
+  response.send(`
+    <p>Phonebook has info for ${Person.length} people</p>
+    <p>${Date()}</p>
+  `).catch(error => next(error))
 })
 
 // Explodes if id doesn't exist
 app.get('/api/persons/:id', (request, response, next) => {
-    Person.findById(request.params.id).then(person => {
-      if (person) {
-        response.json(person)
-      } else {
-        response.status(404).end()
-      }
-    }).catch(error => next(error))
+  Person.findById(request.params.id).then(person => {
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+  }).catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
-    Person.findByIdAndRemove(request.params.id).then(result => {
-      if (result) {
-        console.log('deleted')
-      } else {
-        console.log('not found')
-      }
-      
-      response.status(204).end()
-    }).catch(error => next(error))
+  Person.findByIdAndRemove(request.params.id).then(result => {
+    if (result) {
+      console.log('deleted')
+    } else {
+      console.log('not found')
+    }
+    response.status(204).end()
+  }).catch(error => next(error))
 })
 
 // Obsolete
