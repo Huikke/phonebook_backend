@@ -31,11 +31,14 @@ app.get('/api/persons/:id', (request, response) => {
     })
 })
 
-// Doesn't work
 app.delete('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    persons = persons.filter(person => person.id !== id)
-
+    Person.findByIdAndRemove(request.params.id).then(result => {
+      if (result) {
+        console.log('deleted')
+      } else {
+        console.log('not found')
+      }
+    })
     response.status(204).end()
 })
 
