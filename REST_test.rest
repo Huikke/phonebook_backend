@@ -1,12 +1,13 @@
+### get persons json
 GET http://localhost:3001/api/persons
 
-###
+### get info page
 GET http://localhost:3001/info
 
-###
-DELETE http://localhost:3001/api/persons/2
+### delete person
+DELETE http://localhost:3001/api/persons/641de59c3fa81b2e4ca9660a
 
-###
+### add person
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
@@ -15,7 +16,7 @@ Content-Type: application/json
     "number": "040-139234"
 }
 
-###
+### add person without number
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
@@ -24,5 +25,5 @@ Content-Type: application/json
     "number": ""
 }
 
-###
+### get person that doesn't exist
 GET http://localhost:3001/doesnt_exist
