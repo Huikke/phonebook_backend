@@ -28,5 +28,14 @@ Content-Type: application/json
     "number": ""
 }
 
+### change number for existing person
+PUT http://localhost:3001/api/persons/641e1e27dc4a2264e4f7ea59
+Content-Type: application/json
+
+{
+    "name": "Alan Turing",
+    "number": "010-1010101"
+}
+
 ### get person that doesn't exist
 GET http://localhost:3001/doesnt_exist

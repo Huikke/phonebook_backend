@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
 const Person = require('./models/person')
+const { response } = require('express')
 
 app.use(express.json())
 app.use(express.static('build'))
@@ -16,12 +17,13 @@ app.get('/api/persons', (request, response, next) => {
   }).catch(error => next(error))
 })
 
-// Doesn't work properly
 app.get('/info', (request, response, next) => {
-  response.send(`
-    <p>Phonebook has info for ${Person.length} people</p>
-    <p>${Date()}</p>
-  `).catch(error => next(error))
+  Person.countDocuments({}).then(count => {
+    response.send(`
+      <p>Phonebook has info for ${count} people</p>
+      <p>${Date()}</p>
+    `)
+  }).catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
@@ -73,6 +75,20 @@ app.post('/api/persons', (request, response, next) => {
     person.save().then(savedPerson => {
       response.json(savedPerson)
     })
+  }).catch(error => next(error))
+})
+
+app.put('/api/persons/:id', (request, response, next) => {
+  const body = request.body
+
+  const person = {
+    name: body.name,
+    number: body.number
+  }
+
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+  .then(updatedPerson => {
+    response.json(updatedPerson)
   }).catch(error => next(error))
 })
 
